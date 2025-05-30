@@ -76,7 +76,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginBottom="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewGonderim"
                 app:layout_constraintStart_toStartOf="parent"

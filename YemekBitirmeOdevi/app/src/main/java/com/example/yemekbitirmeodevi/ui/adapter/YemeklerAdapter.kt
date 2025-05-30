@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yemekbitirmeodevi.data.entity.Yemekler
-import com. example. yemekbitirmeodevi. R
+import com.example.yemekbitirmeodevi.R
 import com.example.yemekbitirmeodevi.ui.fragment.AnasayfaFragment
+import com.example.yemekbitirmeodevi.ui.fragment.AnasayfaFragmentDirections
 import com.squareup.picasso.Picasso
 
 class YemeklerAdapter(private val mContext: Context, private val yemeklerListe: List<Yemekler>):RecyclerView.Adapter<YemeklerAdapter.CardTasarimTutucu>() {
@@ -42,15 +44,16 @@ class YemeklerAdapter(private val mContext: Context, private val yemeklerListe: 
     override fun onBindViewHolder(holder: CardTasarimTutucu, position: Int) {
         val yemek = yemeklerListe.get(position)
 
-        holder.textViewYemekAdi.text = yemek.yemekAd
+        holder.textViewYemekAdi.text = yemek.yemek_adi
+        holder.textViewFiyat.text = "${yemek.yemek_fiyat} ₺"
 
-        val url = "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemekResimAd}"
+        val url = "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemek_resim_adi}"
 
         Picasso.get().load(url).into(holder.imageViewYemek)
 
         holder.cardViewYemek.setOnClickListener {
-
+            val gecis = AnasayfaFragmentDirections.yemekDetayGecis(yemek = yemek)
+            Navigation.findNavController(it).navigate(gecis)
         }
-
     }
 }

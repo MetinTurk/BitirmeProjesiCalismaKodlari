@@ -11,10 +11,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yemekbitirmeodevi.data.entity.Yemekler
 import com. example. yemekbitirmeodevi. R
+import com.example.yemekbitirmeodevi.data.entity.SepetYemekler
 import com.example.yemekbitirmeodevi.ui.fragment.AnasayfaFragment
 import com.squareup.picasso.Picasso
 
-class YemeklerAdapter(private val mContext: Context, private val yemeklerListe: List<Yemekler>):RecyclerView.Adapter<YemeklerAdapter.CardTasarimTutucu>() {
+class YemeklerSepetAdapter(private val mContext: Context, private val yemeklerListe: List<SepetYemekler>):RecyclerView.Adapter<YemeklerSepetAdapter.CardTasarimTutucu>() {
 
     inner class CardTasarimTutucu(tasarim: View): RecyclerView.ViewHolder(tasarim){
         var cardViewYemekSepet: CardView
@@ -31,7 +32,7 @@ class YemeklerAdapter(private val mContext: Context, private val yemeklerListe: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardTasarimTutucu {
-        val tasarim = LayoutInflater.from(mContext).inflate(R.layout.yemek_tasarim,parent,false)
+        val tasarim = LayoutInflater.from(mContext).inflate(R.layout.sepet_yemek_tasarim,parent,false)
         return CardTasarimTutucu(tasarim)
     }
 
@@ -48,9 +49,7 @@ class YemeklerAdapter(private val mContext: Context, private val yemeklerListe: 
 
         Picasso.get().load(url).into(holder.imageViewYemekSepet)
 
-        holder.cardViewYemekSepet.setOnClickListener {
 
-        }
 
     }
 }

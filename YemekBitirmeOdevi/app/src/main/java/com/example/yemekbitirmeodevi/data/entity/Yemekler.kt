@@ -2,16 +2,18 @@ package com.example.yemekbitirmeodevi.data.entity
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class Yemekler (
+data class Yemekler(
     @SerializedName("yemek_id")
-    @Expose var yemekId: Int,
+    @Expose var yemek_id: Int,
+    
     @SerializedName("yemek_adi")
-    @Expose var yemekAd: String,
+    @Expose var yemek_adi: String,
+    
     @SerializedName("yemek_resim_adi")
-    @Expose var yemekResimAd: String,
+    @Expose var yemek_resim_adi: String,
+    
     @SerializedName("yemek_fiyat")
-    @Expose var yemekFiyat: Int
-) {
-
-}
+    @Expose var yemek_fiyat: Int
+) : Serializable

@@ -83,19 +83,20 @@
         android:id="@+id/fabButtoneksi"
         android:layout_width="60dp"
         android:layout_height="55dp"
+        android:layout_marginStart="90dp"
         android:clickable="true"
         android:src="@drawable/adet_negatif_resim"
         app:layout_constraintBottom_toBottomOf="@+id/textViewAdet"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewAdet"
-        app:layout_constraintVertical_bias="0.513"
-        tools:layout_editor_absoluteX="90dp" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <TextView
         android:id="@+id/textViewAdet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="TextView"
+        android:text="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fabButtoneksi"
@@ -106,10 +107,11 @@
         android:id="@+id/fabButtonarti"
         android:layout_width="60dp"
         android:layout_height="55dp"
+        android:layout_marginEnd="88dp"
         android:clickable="true"
         android:src="@drawable/adet_pozitif_resim"
         app:layout_constraintBottom_toBottomOf="@+id/textViewAdet"
-        app:layout_constraintTop_toTopOf="@+id/textViewAdet"
-        tools:layout_editor_absoluteX="268dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAdet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
