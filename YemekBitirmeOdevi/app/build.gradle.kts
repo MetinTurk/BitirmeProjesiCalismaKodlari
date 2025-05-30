@@ -4,16 +4,14 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id ("kotlin-android")
-
-
+    id("kotlin-android")
 }
 
 android {
     namespace = "com.example.yemekbitirmeodevi"
     compileSdk = 35
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 
@@ -37,16 +35,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -60,10 +57,10 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation ("com.squareup.picasso:picasso:2.8")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.google.dagger:hilt-android:2.56.2")
-    kapt("com.google.dagger:hilt-android-compiler:2.56.2")
+    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
@@ -78,4 +75,7 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    // Lottie
+    implementation("com.airbnb.android:lottie:6.3.0")
 }

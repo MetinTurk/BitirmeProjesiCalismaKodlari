@@ -8,8 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.yemekbitirmeodevi.R
 import com.example.yemekbitirmeodevi.databinding.FragmentSepetBinding
 import com.example.yemekbitirmeodevi.ui.adapter.SepetAdapter
+import com.example.yemekbitirmeodevi.ui.dialog.LoadingDialog
 import com.example.yemekbitirmeodevi.ui.viewmodel.SepetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +20,7 @@ class SepetFragment : Fragment() {
     private var _binding: FragmentSepetBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SepetViewModel by viewModels()
-    private lateinit var adapter: SepetAdapter
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSepetBinding.inflate(inflater, container, false)
@@ -27,6 +29,9 @@ class SepetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        loadingDialog = LoadingDialog(requireContext())
+        loadingDialog.showWithDelay()
 
         setupRecyclerView()
         loadSepetData()
@@ -49,14 +54,27 @@ class SepetFragment : Fragment() {
     private fun setupObservers() {
         viewModel.sepetYemekleri.observe(viewLifecycleOwner) { yemekler ->
             try {
-                adapter = SepetAdapter(requireContext(), yemekler, viewModel)
-                binding.rVSepetim.adapter = adapter
+                if (yemekler.isEmpty()) {
+                    // Sepet boşsa boş durum görünümünü göster
+                    binding.layoutEmptyState.visibility = View.VISIBLE
+                    binding.rVSepetim.visibility = View.GONE
+                    binding.buttonSepetOnayla.isEnabled = false
+                    binding.textViewTutarSepetim.text = "0 ₺"
+                } else {
+                    // Sepette ürün varsa listeyi göster
+                    binding.layoutEmptyState.visibility = View.GONE
+                    binding.rVSepetim.visibility = View.VISIBLE
+                    binding.buttonSepetOnayla.isEnabled = true
+                    
+                    val adapter = SepetAdapter(requireContext(), yemekler, viewModel)
+                    binding.rVSepetim.adapter = adapter
 
-                var toplamTutar = 0
-                yemekler.forEach { yemek ->
-                    toplamTutar += yemek.yemekFiyat * yemek.yemek_siparis_adet
+                    var toplamTutar = 0
+                    yemekler.forEach { yemek ->
+                        toplamTutar += yemek.yemekFiyat * yemek.yemek_siparis_adet
+                    }
+                    binding.textViewTutarSepetim.text = "$toplamTutar ₺"
                 }
-                binding.textViewTutarSepetim.text = "$toplamTutar ₺"
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Sepet güncellenirken bir hata oluştu: ${e.message}", Toast.LENGTH_LONG).show()
             }
@@ -68,6 +86,7 @@ class SepetFragment : Fragment() {
 
         viewModel.silmeDurumu.observe(viewLifecycleOwner) { basarili ->
             if (basarili) {
+                loadingDialog.showWithDelay(1500) // 1.5 saniye göster
                 loadSepetData()
             }
         }
@@ -76,7 +95,6 @@ class SepetFragment : Fragment() {
     private fun setupButtons() {
         binding.buttonSepetOnayla.setOnClickListener {
             Toast.makeText(requireContext(), "Sipariş onaylandı!", Toast.LENGTH_SHORT).show()
-            // Burada sipariş onaylama işlemleri yapılabilir
         }
     }
 
